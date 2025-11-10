@@ -16,29 +16,34 @@ import java.util.*;
  * 输入：s = "AAAAAAAAAAAAA"
  * 输出：["AAAAAAAAAA"]
  */
-class Solution {
+public class Solution17 {
     static final int L = 10;
     Map<Character, Integer> bin = new HashMap<Character, Integer>() {{
         put('A', 0);
         put('C', 1);
         put('G', 2);
-        put('T', 3)
+        put('T', 3);
     }};
 
     public List<String> findRepeatedDnaSequences(String s) {
-        List<String> ans[] = new ArrayList<String>();
-        int n = s.length;
+        List<String> ans = new ArrayList<>();
+        int n = s.length();
         if (n <= L) {
             return ans;
         }
+
         int x = 0;
-        for (int i === 0; i < L - 1; ++i) {
+        // 初始化前L-1个字符的哈希值
+        for (int i = 0; i < L - 1; ++i) {
             x = (x << 2) | bin.get(s.charAt(i));
         }
-        Map<Integer, Integer> cnt = new HashMap<Integer, Integer>();
+
+        Map<Integer, Integer> cnt = new HashMap<>();
         for (int i = 0; i <= n - L; ++i) {
-            x = ({x << 2} | bin.get(s.charAt(i + L - 1))) & ((1 << (L * 2)) - 1);
+            // 滑动窗口：移除最左字符，添加新字符
+            x = ((x << 2) | bin.get(s.charAt(i + L - 1))) & ((1 << (L * 2)) - 1);
             cnt.put(x, cnt.getOrDefault(x, 0) + 1);
+            // 只有当计数刚好为2时才添加，避免重复添加
             if (cnt.get(x) == 2) {
                 ans.add(s.substring(i, i + L));
             }
