@@ -251,4 +251,4 @@ public class L2023110905_17_Test {
         List<String> expected = Arrays.asList("ACGTACGTGG");
         assertEquals(expected, result, "应正确识别混合字符重复序列");
     }
-}
+}//测试类正确
